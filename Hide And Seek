@@ -1,0 +1,51 @@
+#include<stdio.h>
+long long int Multiply(long long int n1,long long int n2, long long int m);
+int main()
+{
+    int c,h;
+    scanf("%d",&h);
+    for(c=0;c<h;c++)
+    {
+        if(c!=0)
+            printf("\n");
+
+        long long int a,b,mod,j,k,l,p,r,s,z1,z2,z3,ans=1;
+        int n,d;
+        scanf("%d",&n);
+        scanf("%lld",&mod);
+
+        for(d=0;d<n;d++)
+        {
+            scanf("%lld %lld",&a,&b);
+
+            j = (a%2==0 ? a  : a+1);
+            k = (a%2!=0 ? a  : a+1);
+            l = (b%2==0 ? b  : b+1);
+            p = (b%2!=0 ? b  : b+1);
+
+            r = j/2;
+            s = l/2;
+
+            z1 = Multiply(r,k,mod);
+            z2 = Multiply(s,p,mod);
+            z3 = Multiply(z1,z2,mod);
+            ans = Multiply(ans,z3,mod);
+        }
+        printf("%lld",ans);
+    }
+    return 0;
+}
+
+long long int Multiply(long long int n1,long long int n2, long long int m)
+{
+    long long int fin = 0;
+    while(n2>0)
+    {
+        if(n2%2==1)
+            fin = (fin + n1) % m;
+
+        n1 = (n1 + n1) % m;
+        n2 = n2 / 2;
+    }
+    return fin;
+}
